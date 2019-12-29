@@ -1,0 +1,40 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671
+{\fonttbl\f0\froman\fcharset0 TimesNewRomanPSMT;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
+\margl1440\margr1440\vieww13900\viewh16280\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\qc\partightenfactor0
+
+\f0\fs24 \cf2 Emma Rafkin \'97 CS72 Homework 1 \
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf2 1) \cf2 \expnd0\expndtw0\kerning0
+Show the result when you use your min_edit program to find the distance between the following pairs of words:\
+drive vs. brief: 4.0\
+animal vs. mammal: 4.0\
+elementary vs. education: 15.0\
+python vs. perl: 8.0\
+\
+2) What is the accuracy of your spell checking script using the Levenshtein distance on the set of misspelled words? \
+My accuracy was \cf2 \kerning1\expnd0\expndtw0 66.742081448%.\
+\
+3) \cf2 \expnd0\expndtw0\kerning0
+In order to make the running time on this assignment feasible, I had to make the lexicon (the dict.txt file) very small. It has only 3139 words. How do you think the accuracy would be affected if the lexicon were much larger? Why? \
+\cf2 \kerning1\expnd0\expndtw0  \
+Depending on the word, the accuracy would stay the same or decrease. Presumably, every word in the misspellings document has a corresponding correct spelling in the dictionary. If not, then the accuracy might increase. For all of the words that it is inaccurately correcting, either it is finding a different word with a smaller MED (ie the word is misspelled so much so that there is a completely different word that it is more similar to than the actual misspelled word), or it is finding the intended word AND different words with the same MED. Since the algorithm just returns the alphabetically last element in the list of words with the MED from the misspelled word, if the lexicon were larger, the algorithm could potentially increase the size of these lists of potential corrections with the minimum MED. Thus, it would be less likely to return the intended correct spelling, and therefore the accuracy would decrease.\
+\
+4) \
+\pard\pardeftab720\sl360\sa240\partightenfactor0
+\cf2 \expnd0\expndtw0\kerning0
+a) What is the best accuracy you were able to get from your spell checker?\
+86.2%\uc0\u8232 \u8232 b) Explain all the improvements you made to the costs of spell checker (there should be at least 5; number and explain each of them). How did you decide on each cost? Were there any changes you made that you expected would help, but they didn't?\
+My first change was to see if the current letters in both the source and target words were vowels. I noticed that often people use the wrong vowel, so I lowered the cost of a swap if both of those letters were vowels. That increased my accuracy to 69%.\
+Then I looked at the idea of repeated letters. The most commonly repeated letter in English are \cf2 \kerning1\expnd0\expndtw0 ss, ee, tt, ff, ll, mm and oo. \cf2 \expnd0\expndtw0\kerning0
+These are also generally common letters in English. \cf2 So if the letter in the target was one of those, I would lower the cost of insertion. \cf2 This raised my accuracy to 74.7%.\
+Similarly, I lowered the swap cost for letters that are easy to confuse with each other, in this case I only did this for c and s, and m and n. This raised my accuracy to 75.7%.\
+Then I introduced the concept of \'93twiddle\'94 into my algorithm. I noticed that often two letters next to each other are just flipped in misspellings (ie \'93freind\'94 or \'93hte\'94). Therefore, if two letters in the target and the source were exact flipped matches of each other (for example \'93freind\'94 and \'93friend\'94), then the \'93twiddle\'94 cost would be 0. Additionally, I added the concept of common twiddles, because often people put \'93ei\'94 instead of \'93ie\'94, or \'93ae\'94 instead of \'93ea\'94. Therefore, I would return a lower cost if this were the situation. Otherwise, there would be a large cost (4) for twiddle, so that this would not be a common solution. This increased my accuracy to 83%\
+Finally, I increased the deletion cost to 2, and thus the substitution cost to 3. This would make anything but insertion less likely to be a solution. This increased my accuracy to 86.2%/\
+For all of the edited situational costs, I usually just divided the usual cost in half. For the common twiddle situation, I made that the same cost as the common insertion, so that it would be likely to be chosen, because I felt that it was a common mistake, so it should not be penalized if I wanted accurate results. \
+\uc0\u8232 c) What changes made the most improvement? Why do you think they helped so much? \
+The addition of the concept of twiddle and the common twiddles had the most improvement. Again, I believe that this is a common mistake (I make it a lot, especially when typing quickly), therefore it was probably represented a lot in the data. Because of this, it allowed my algorithm to find the correct spellings for the twiddled words as the ones with the minimum edit distance (as hoped). \
+}
