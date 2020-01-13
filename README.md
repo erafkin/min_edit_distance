@@ -7,4 +7,4 @@ For more information on minimum edit distance, see [here](https://en.wikipedia.o
 Clone the repository. Then in the terminal enter `python spelling_correction.py dict.txt misspellings.txt`
 
 ## Dev
-Developed in python 2.7 for the Dartmouth class CS72 (Accellerated Computational Linguistics
+Developed in python 2.7 for the Dartmouth class CS72 (Accelerated Computational Linguistics)
